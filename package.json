@@ -1,0 +1,36 @@
+{
+    "name": "paradroid-rl",
+    "version": "0.0.1",
+    "author": "Patrick Meade <veloxi@ticon.net>",
+    "description": "Paradroid themed Roguelike written in CoffeeScript and using rot.js",
+    "scripts": {
+        "start": "firefox Paradroid.html"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/blinkdog/7drl-2015.git"
+    },
+    "keywords": [
+        "001",
+	"7DRL",
+	"coffeescript",
+	"game",
+	"html5",
+	"javascript",
+        "paradroid",
+	"rogue",
+	"roguelike",
+	"rot",
+	"rot.js"
+    ],
+    "dependencies": {
+    },
+    "devDependencies": {
+        "browserify": "9.0.3",
+        "coffee-script": "1.9.1",
+        "istanbul": "0.3.7",
+        "mocha": "2.2.1",
+	"should": "5.1.0"
+    },
+    "license" : "Copyright 2015 Patrick Meade. All rights reserved."
+}
