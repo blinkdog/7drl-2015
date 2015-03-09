@@ -1,0 +1,18 @@
+/*
+ * Paradroid.css
+ * Copyright 2015 Patrick Meade. All rights reserved.
+ */
+
+body {
+    background-color: #000;
+    font-family: droid sans mono, monospace;
+    font-size: 16px;
+    margin: 0;
+}
+
+canvas {
+    display: block;
+    margin: auto;
+}
+
+/* end of Paradroid.css */
