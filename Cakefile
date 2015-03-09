@@ -54,7 +54,7 @@ coverage = (next) ->
       next?()
 
 tar = (next) ->
-  exec 'tar cvzf Paradroid.tar.gz Paradroid.html Paradroid.css Paradroid.js sfx', (err, stdout, stderr) ->
+  exec 'tar cvzf Paradroid.tar.gz Paradroid.html Paradroid.css Paradroid.js js sfx', (err, stdout, stderr) ->
     throw err if err
     next?()
 
