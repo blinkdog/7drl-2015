@@ -2,8 +2,10 @@
 # Copyright 2015 Patrick Meade. All rights reserved.
 #----------------------------------------------------------------------
 
+audio = require './audio'
+
 exports.run = ->
-  alert ROT.isSupported()
+  audio.loop 'briefing'
 
 #----------------------------------------------------------------------
 # end of paradroid.coffee
