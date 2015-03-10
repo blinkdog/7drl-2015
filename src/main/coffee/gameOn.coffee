@@ -1,11 +1,16 @@
-# paradroid.coffee
+# gameOn.coffee
 # Copyright 2015 Patrick Meade. All rights reserved.
 #----------------------------------------------------------------------
 
-briefing = require './briefing'
+audio = require './audio'
 
+# run this module
 exports.run = ->
-  briefing.run()
+  # play the beam-on-to-ship sound effect
+  audio.play 'game-on'
+
+# debugging in browser
+window.API.gameOn = exports if window?.API?
 
 #----------------------------------------------------------------------
-# end of paradroid.coffee
+# end of gameOn.coffee
