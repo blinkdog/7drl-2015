@@ -10,8 +10,8 @@
 # Deck map generation control constants
 MAX_ATTEMPT = 100
 MAX_DEPTH = 5
+MIN_DEPTH = 2
 MIN_THICKNESS = 3
-#PROB_HORIZ_SPLIT = DECK_SIZE.height / (DECK_SIZE.width + DECK_SIZE.height)
 PROB_HORIZ_SPLIT = 0.5
 PROB_STOP_SPLIT = 0.01
 
@@ -42,26 +42,21 @@ ROT.Map.Deck::_betweenInc = (min, max) ->
   min + Math.floor(((max-min)+1) * Math.random())
 
 ROT.Map.Deck::_bsp = (x1, y1, x2, y2, depth) ->
-  SHOW("BSP (D:%s) [%s,%s] => [%s,%s]".format depth, x1, y1, x2, y2)
   # if we are too deep
   if depth >= MAX_DEPTH
-    SHOW("TOO DEEP!")
     return null 
   # if we should no longer split
-  if (depth >= 1) and (Math.random() < PROB_STOP_SPLIT)
-    SHOW("STOP BSP!")
+  if (depth >= MIN_DEPTH) and (Math.random() < PROB_STOP_SPLIT)
     return null
   # if we should split horizontally
   if Math.random() < PROB_HORIZ_SPLIT
     # if there isn't room to split horizontally
     if ((y2-y1)+1) < ((MIN_THICKNESS*2)+1)
-      SHOW("TOO THIN!")
       return null
     # figure out where we're going to split
     minSplit = y1 + MIN_THICKNESS
     maxSplit = y2 - MIN_THICKNESS
     splitAt = @_betweenInc minSplit, maxSplit
-    SHOW("HORIZ split at %s".format splitAt)
     # recursively split the subspaces
     top = @_bsp x1, y1, x2, splitAt-1, depth+1
     bottom = @_bsp x1, splitAt+1, x2, y2, depth+1
@@ -77,13 +72,11 @@ ROT.Map.Deck::_bsp = (x1, y1, x2, y2, depth) ->
   else
     # if there isn't room to split vertically
     if ((x2-x1)+1) < ((MIN_THICKNESS*2)+1)
-      SHOW("TOO THIN!")
       return null
     # figure out where we're going to split
     minSplit = x1 + MIN_THICKNESS
     maxSplit = x2 - MIN_THICKNESS
     splitAt = @_betweenInc minSplit, maxSplit
-    SHOW("VERT split at %s".format splitAt)
     # recursively split the subspaces
     left = @_bsp x1, y1, splitAt-1, y2, depth+1
     right = @_bsp splitAt+1, y1, x2, y2, depth+1
@@ -105,9 +98,7 @@ ROT.Map.Deck::_fill = (map, x1, y1, x2, y2, value) ->
 
 ROT.Map.Deck::_walk = (map, node, x1, y1, x2, y2, avoid) ->
   # determine the boundaries of the subspaces
-  SHOW("WALK [%s,%s] => [%s,%s]".format x1, y1, x2, y2)
   if node.split is 'HORIZ'
-    SHOW("  HORIZ @ %s".format node.splitAt)
     lx1 = x1
     ly1 = y1
     lx2 = x2
@@ -117,7 +108,6 @@ ROT.Map.Deck::_walk = (map, node, x1, y1, x2, y2, avoid) ->
     rx2 = x2
     ry2 = y2
   if node.split is 'VERT'
-    SHOW("  VERT @ %s".format node.splitAt)
     lx1 = x1
     ly1 = y1
     lx2 = node.splitAt-1
@@ -126,23 +116,17 @@ ROT.Map.Deck::_walk = (map, node, x1, y1, x2, y2, avoid) ->
     ry1 = y1
     rx2 = x2
     ry2 = y2
-  SHOW("  LSUB [%s,%s] => [%s,%s]".format lx1, ly1, lx2, ly2)
-  SHOW("  RSUB [%s,%s] => [%s,%s]".format rx1, ry1, rx2, ry2)
   avoid[node.split].push node.splitAt
   # walk the subspace nodes, fill the subspace leaves
   if node.left?
     @_walk map, node.left, lx1, ly1, lx2, ly2, avoid
   else
-    SHOW("LEFT [%s,%s] => [%s,%s]".format lx1, ly1, lx2, ly2)
     @_fill map, lx1, ly1, lx2, ly2, DECK_OBJECT.EMPTY
   if node.right?
     @_walk map, node.right, rx1, ry1, rx2, ry2, avoid
   else
-    SHOW("RGHT [%s,%s] => [%s,%s]".format rx1, ry1, rx2, ry2)
     @_fill map, rx1, ry1, rx2, ry2, DECK_OBJECT.EMPTY
   # determine how to bridge between the two subspaces
-  SHOW("avoid[HORIZ]: %s".format avoid['HORIZ'])
-  SHOW("avoid[VERT]: %s".format avoid['VERT'])
   if node.split is 'HORIZ'
     attempt = 0
     choice = -1
@@ -151,13 +135,10 @@ ROT.Map.Deck::_walk = (map, node, x1, y1, x2, y2, avoid) ->
       if not (doorAt in avoid['VERT'])
         choice = doorAt
       else
-        SHOW("CHOOSING AGAIN...")
         attempt++
       if attempt > MAX_ATTEMPT
-        SHOW("UNABLE TO PICK A DOOR IN A HORIZONTAL SPLIT!!!")
         choice = doorAt
-    SHOW("DOOR: [%s,%s]".format choice, node.splitAt)
-    @_map[choice][node.splitAt] = DECK_OBJECT.EMPTY # TODO: HORIZ DOOR!
+    @_map[choice][node.splitAt] = DECK_OBJECT.DOOR_H
   if node.split is 'VERT'
     attempt = 0
     choice = -1
@@ -166,13 +147,10 @@ ROT.Map.Deck::_walk = (map, node, x1, y1, x2, y2, avoid) ->
       if not (doorAt in avoid['HORIZ'])
         choice = doorAt
       else
-        SHOW("CHOOSING AGAIN...")
         attempt++
       if attempt > MAX_ATTEMPT
-        SHOW("UNABLE TO PICK A DOOR IN A VERTICAL SPLIT!!!")
         choice = doorAt
-    SHOW("DOOR: [%s,%s]".format node.splitAt, choice)
-    @_map[node.splitAt][choice] = DECK_OBJECT.EMPTY # TODO: VERT DOOR!
+    @_map[node.splitAt][choice] = DECK_OBJECT.DOOR_V
   return avoid
 
 # export to Node module

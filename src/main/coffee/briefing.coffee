@@ -151,8 +151,8 @@ BRIEFING = [ "BRIEFING: ParadroidRL",
 "END BRIEFING" ]
 
 {
-  VK_UP, VK_NUMPAD8,
-  VK_DOWN, VK_NUMPAD2,
+  VK_UP, VK_NUMPAD8, VK_PAGE_UP,
+  VK_DOWN, VK_NUMPAD2, VK_PAGE_DOWN,
   VK_SPACE
 } = ROT
 
@@ -174,8 +174,14 @@ handleKey = (event) ->
     when VK_UP, VK_NUMPAD8
       briefingScroll = Math.max 0, briefingScroll-1
       updateBriefing()
+    when VK_PAGE_UP
+      briefingScroll = Math.max 0, briefingScroll-DISPLAY_SIZE.height
+      updateBriefing()
     when VK_DOWN, VK_NUMPAD2
       briefingScroll = Math.min MAX_SCROLL, briefingScroll+1
+      updateBriefing()
+    when VK_PAGE_DOWN
+      briefingScroll = Math.min MAX_SCROLL, briefingScroll+DISPLAY_SIZE.height
       updateBriefing()
     when VK_SPACE
       window.removeEventListener 'keydown', handleKey

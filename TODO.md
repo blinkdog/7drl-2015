@@ -6,8 +6,13 @@ My TO-DO list for the Seven Day Roguelike (7DRL) Challenge 2015
 * [ ] Create a New Game module
 ** [ ] Generate a Ship Layout
 *** [X] Generate a Deck Layout
+*** [ ] Add consoles to ship
+*** [ ] Add droids to ship
+*** [ ] Add energizers to ship
+*** [ ] Add lifts to ship
+*** [ ] Add player droid to ship
 * [ ] Create a Main Game module
-** [ ] Create a BSOD module
+** [X] Create a BSOD module
 * [ ] Create a Transfer module
 * [ ] Create a Lifts module
 * [ ] Create a Console module
