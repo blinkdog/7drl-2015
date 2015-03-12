@@ -4,7 +4,8 @@
 
 SOUNDS = [
   "briefing",
-  "game-on"
+  "game-on",
+  "game-start"
 ]
 
 sfx = {}
@@ -43,6 +44,13 @@ exports.stop = (name) ->
   if sfx[name]?
     sfx[name].loop = false
     sfx[name].pause()
+
+# stop all sound effects
+exports.stopAll = ->
+  for name in SOUNDS
+    if sfx[name]?
+      sfx[name].loop = false
+      sfx[name].pause()
 
 # debugging in browser
 window.API.audio = exports if window?.API?

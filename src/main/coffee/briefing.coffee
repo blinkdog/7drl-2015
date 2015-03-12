@@ -9,7 +9,7 @@ gameOn = require './gameOn'
 
 BRIEFING = [ "BRIEFING: ParadroidRL",
 "",
-"Original Paradroid (Commodore 64)",
+"Original Paradroid for Commodore 64",
 "programmed by Andrew Braybrook.",
 "",
 "Begin Mission:   Space Bar",
