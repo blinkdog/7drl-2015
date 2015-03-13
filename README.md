@@ -13,8 +13,11 @@ My entry for Seven Day Roguelike (7DRL) Challenge 2015
 * 095 - BSOD
 * 079 - All(?) sound effects
 * 076 - Lifts that ensure all decks can be accessed
-
+* 070 - Main game display with borrowed tileset
+ 
 ## Thanks
-* Dave Glowacki and David Schultz, for assistance with the deck
-accessibility algorithm idea. Piss-poor implementation to be blamed
-completely on @blinkdog.
+* Thank you to Dave Glowacki and David Schultz, for assistance with the deck
+accessibility algorithm idea. Piss-poor implementation to be blamed completely
+on @blinkdog.
+* `img/terminal8x8.png` borrowed from [Necromancer Simulator 2014](https://github.com/maqqr/7drl2014)
+then given an alpha channel to make it usable as rot.js tileset

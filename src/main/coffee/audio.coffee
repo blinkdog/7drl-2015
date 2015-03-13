@@ -2,6 +2,8 @@
 # Copyright 2015 Patrick Meade. All rights reserved.
 #----------------------------------------------------------------------
 
+_ = require 'underscore'
+
 SOUNDS = [
   "briefing",
   "game-on",
@@ -10,17 +12,24 @@ SOUNDS = [
 
 sfx = {}
 
+maybeAllLoaded = _.after SOUNDS.length, ->
+  exports.allLoaded = true
+
 loadSound = (name) ->
   audioObj = new Audio "sfx/#{name}.ogg"
   audioObj.onloadeddata = -> 
     console.log "Audio Loaded: #{name}"
     sfx[name] = audioObj
+    maybeAllLoaded()
   audioObj.load()
 
 if window?.Audio?
   audio = new Audio()
   if audio.canPlayType 'audio/ogg'
     loadSound name for name in SOUNDS
+
+# true when all the sounds have been loaded
+exports.allLoaded = false
 
 # list of available sounds
 exports.list = SOUNDS

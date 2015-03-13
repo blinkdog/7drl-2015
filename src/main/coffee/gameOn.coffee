@@ -15,7 +15,10 @@ DISPLAY_SIZE =
 GAME_START_DELAY = 4250 #ms
 
 {
+  DECK_DIFFICULTY,
+  DECK_OBJECT,
   DECK_SIZE,
+  DROIDS,
   SHIP_NAMES
 } = require './constant'
 
@@ -24,6 +27,29 @@ GAME_START_DELAY = 4250 #ms
 display = null
 
 #----------------------------------------------------------------------
+
+addDroids = ->
+
+addPlayer = ->
+  theShip = window.game.ship
+  startingDeckIndex = DECK_DIFFICULTY.START.random()
+  startingDeck = theShip.decks[startingDeckIndex]
+  [x,y] = ship.findRandomObject startingDeck, DECK_OBJECT.EMPTY
+  window.game.player ?=
+    droid: DROIDS[0]
+    x: -1
+    y: -1
+    z: -1
+  window.game.player.x = x
+  window.game.player.y = y
+  window.game.player.z = startingDeckIndex
+
+droidType = (id) ->
+  return "Device" if id is "001"
+  return "Cyborg" if id is "999"
+  numId = parseInt id
+  return "Robot" if numId < 500
+  return "Droid"
 
 handleResize = (event) ->
   # center the display canvas vertically in the window
@@ -43,24 +69,27 @@ initDisplay = ->
   updateDisplay()
 
 initGame = ->
-  if not window.game?
-    window.game =
-      droid:
-        type: "001"
-        klass: "Influence Device"
-      ship: null
-      shipId: 0
+  # if we don't have a game object, create one
+  window.game ?= {}         
+  # if we don't have a starting ship, start at Metahawk
+  window.game.shipId ?= 0
+  # generate a ship layout
   window.game.ship = ship.create()
+  # add the player to the ship
+  addPlayer()
+  # add hostile droids to the ship
+  addDroids()
 
 startGame = ->
   audio.play 'game-start'
+  window.removeEventListener 'resize', handleResize
   mainGame.run()
 
 updateDisplay = ->
-  {droid} = window.game
+  {droid} = window.game.player
   shipName = SHIP_NAMES[window.game.shipId]
   display.clear()
-  display.drawText 0, 0, "Unit Type #{droid.type}: #{droid.klass}"
+  display.drawText 0, 0, "Unit Type #{droid.id}: #{droid.klass} #{droidType droid.id}"
   display.drawText 0, 2, "This is the unit that you currently control. Prepare to board Robo-Freighter #{shipName} to eliminate all rogue robots."
 
 # run this module

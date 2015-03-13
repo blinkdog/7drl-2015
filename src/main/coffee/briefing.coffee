@@ -185,6 +185,7 @@ handleKey = (event) ->
       updateBriefing()
     when VK_SPACE
       window.removeEventListener 'keydown', handleKey
+      window.removeEventListener 'resize', handleResize
       audio.stop 'briefing'
       gameOn.run()
 
