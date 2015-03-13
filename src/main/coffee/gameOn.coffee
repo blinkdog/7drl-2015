@@ -4,6 +4,7 @@
 
 audio = require './audio'
 mainGame = require './mainGame'
+ship = require './ship'
 
 #----------------------------------------------------------------------
 
@@ -47,7 +48,9 @@ initGame = ->
       droid:
         type: "001"
         klass: "Influence Device"
+      ship: null
       shipId: 0
+  window.game.ship = ship.create()
 
 startGame = ->
   audio.play 'game-start'

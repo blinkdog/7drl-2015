@@ -12,3 +12,9 @@ My entry for Seven Day Roguelike (7DRL) Challenge 2015
 * 096 - Deck map generation
 * 095 - BSOD
 * 079 - All(?) sound effects
+* 076 - Lifts that ensure all decks can be accessed
+
+## Thanks
+* Dave Glowacki and David Schultz, for assistance with the deck
+accessibility algorithm idea. Piss-poor implementation to be blamed
+completely on @blinkdog.

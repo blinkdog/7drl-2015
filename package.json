@@ -1,6 +1,6 @@
 {
     "name": "paradroid-rl",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "author": "Patrick Meade <veloxi@ticon.net>",
     "description": "Paradroid themed Roguelike written in CoffeeScript and using rot.js",
     "scripts": {
@@ -30,7 +30,7 @@
         "coffee-script": "1.9.1",
         "istanbul": "0.3.7",
         "mocha": "2.2.1",
-	"should": "5.1.0"
+	"should": "5.2.0"
     },
     "license" : "Copyright 2015 Patrick Meade. All rights reserved."
 }

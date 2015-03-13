@@ -34,7 +34,7 @@ ROT.Map.Deck::create = (next) ->
   # send the map information to the callback
   for i in [0...@_width]
     for j in [0...@_height]
-      next i, j, @_map[i][j]
+      next?(i, j, @_map[i][j])
   # return the map
   return @_map
 

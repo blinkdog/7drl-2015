@@ -2,6 +2,16 @@
 # Copyright 2015 Patrick Meade. All rights reserved.
 #----------------------------------------------------------------------
 
+# START:  001 (Player)
+# EASY:   1xx-3xx
+# NORMAL: 4xx-6xx
+# HARD:   7xx-9xx
+exports.DECK_DIFFICULTY =
+  START:  [    2,3,4,                      14   ]
+  EASY:   [  1,2,3,4,5,6,    9,10,11,      14,15]
+  NORMAL: [0,1,      5,6,  8,9,      12,13,   15]
+  HARD:   [  1,          7,    10,11,         15]
+
 exports.DECK_NAMES = [
   "Observation Deck",
   "Bridge",
