@@ -30,7 +30,7 @@ addLifts = (ship) ->
     upDeckIndex = randomDeckIndex
     downDeckIndex = randomDeckIndex
     while (downDeckIndex < ship.decks.length-1) and (Math.random() < 0.5)
-      downDeck = ship.decks[downDeckIndex]
+      downDeck = ship.decks[downDeckIndex+1]
       if downDeck[liftAt[0]][liftAt[1]] is DECK_OBJECT.EMPTY
         downDeckIndex++
       else
@@ -38,7 +38,7 @@ addLifts = (ship) ->
         break
 #    console.log "downDeckIndex = #{downDeckIndex}"
     while (upDeckIndex > 0) and (Math.random() < 0.5)
-      upDeck = ship.decks[upDeckIndex]
+      upDeck = ship.decks[upDeckIndex-1]
       if upDeck[liftAt[0]][liftAt[1]] is DECK_OBJECT.EMPTY
         upDeckIndex--
       else
@@ -89,7 +89,7 @@ findRandomObject = (deck, obj) ->
     for y in [0...DECK_SIZE.height]
       if deck[x][y] is obj
         possible.push [x,y]
-  console.log "findRandomObject: There are #{possible.length} possibilities."
+#  console.log "findRandomObject: There are #{possible.length} possibilities."
   return possible.random()
 
 #----------------------------------------------------------------------
@@ -98,9 +98,11 @@ exports.create = ->
   # create a ship full of decks
   ship =
     decks: []
+    views: []
   for name in DECK_NAMES
     deck = new Deck DECK_SIZE.width, DECK_SIZE.height
     ship.decks.push deck.create()
+    ship.views.push ((false for y in [0...DECK_SIZE.height]) for x in [0...DECK_SIZE.width])
   # add lifts
   addLifts ship
   # add consoles

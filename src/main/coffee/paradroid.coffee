@@ -6,7 +6,8 @@
 audio = require './audio'
 tiles = require './tiles'
 
-briefing = require './briefing'
+#briefing = require './briefing'
+briefing = require './gameOn'     # TODO: Revert; This is just for dev/test!
 
 checkResources = ->
   if audio.allLoaded and tiles.allLoaded

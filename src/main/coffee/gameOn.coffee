@@ -30,6 +30,10 @@ display = null
 
 addDroids = ->
 
+addMessages = ->
+  shipName = SHIP_NAMES[window.game.shipId]
+  window.game.messages = ["You board the Robo-Freighter #{shipName}."]
+
 addPlayer = ->
   theShip = window.game.ship
   startingDeckIndex = DECK_DIFFICULTY.START.random()
@@ -75,6 +79,8 @@ initGame = ->
   window.game.shipId ?= 0
   # generate a ship layout
   window.game.ship = ship.create()
+  # add messages to the game
+  addMessages()
   # add the player to the ship
   addPlayer()
   # add hostile droids to the ship
@@ -99,9 +105,12 @@ exports.run = ->
   # initialize the display
   initDisplay()
   # play the beam-on-to-ship sound effect
-  audio.play 'game-on'
+  # TODO: Revert; Just for dev/testing!
+  #audio.play 'game-on'
   # start the game
-  setTimeout startGame, GAME_START_DELAY
+  # TODO: Revert; Just for dev/testing!
+  #setTimeout startGame, GAME_START_DELAY
+  setTimeout startGame, 1
   
 # debugging in browser
 window.API.gameOn = exports if window?.API?

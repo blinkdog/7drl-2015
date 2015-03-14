@@ -2,20 +2,28 @@
 My TO-DO list for the Seven Day Roguelike (7DRL) Challenge 2015
 
 ## Next Tasks
-* [X] Fix audio.allLoaded to set flag properly (i.e.: _.after)
 * [ ] Create a New Game module
-** [ ] Generate a Ship Layout
+** [X] Generate a Ship Layout
 *** [X] Generate a Deck Layout
 *** [X] Add lifts to ship
-*** [X] Add player droid to ship
-*** [ ] Add droids to ship
 *** [ ] Add energizers to ship
 *** [ ] Add consoles to ship
+** [X] Add player droid to ship
+** [ ] Add droids to ship
 * [ ] Create a Main Game module
 ** [X] Create a BSOD module
-** [ ] Display the deck map with FOV
-** [ ] Walk around the deck map
+** [X] Display the deck map with FOV
+** [ ] Proper movement around the deck map
+*** [X] No-Clip movement around the deck map
+*** [ ] Respect walls
+*** [ ] Respect closed doors
+*** [ ] Respect open doors
+** [X] Title bar
+** [X] Status bar
+** [X] Messages window
+** [ ] Map Key
 * [ ] Create a Lifts module
+** [ ] Select decks
 * [ ] Create a Transfer module
 * [ ] Create a Console module
 * [ ] Create an Inventory module

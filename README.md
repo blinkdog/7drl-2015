@@ -14,6 +14,7 @@ My entry for Seven Day Roguelike (7DRL) Challenge 2015
 * 079 - All(?) sound effects
 * 076 - Lifts that ensure all decks can be accessed
 * 070 - Main game display with borrowed tileset
+* 048 - Deck display, FOV, viewed/not-viewed, no-clip walking
  
 ## Thanks
 * Thank you to Dave Glowacki and David Schultz, for assistance with the deck

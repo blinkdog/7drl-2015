@@ -3,18 +3,41 @@
 #----------------------------------------------------------------------
 
 bsod = require './bsod'
-{DECK_NAMES} = require './constant'
-{TILEMAP, TILESET} = require './tiles'
-
-DISPLAY_SIZE =
-  width: 80
-  height: 50
+{
+  DECK_NAMES,
+  DECK_SIZE,
+  DISPLAY_SIZE
+} = require './constant'
+{
+  TILEMAP,
+  TILESET
+} = require './tiles'
+tui = require './tui'
 
 #----------------------------------------------------------------------
 
 display = null
 
 #----------------------------------------------------------------------
+
+handleKey = (event) ->
+  {
+    VK_DOWN, VK_LEFT, VK_RIGHT, VK_UP
+  } = ROT
+  {player} = window.game
+  switch event.keyCode
+    when VK_UP
+      player.y = Math.max 0, player.y-1
+      updateDisplay()
+    when VK_DOWN
+      player.y = Math.min DECK_SIZE.height-1, player.y+1
+      updateDisplay()
+    when VK_LEFT
+      player.x = Math.max 0, player.x-1
+      updateDisplay()
+    when VK_RIGHT
+      player.x = Math.min DECK_SIZE.width-1, player.x+1
+      updateDisplay()
 
 handleResize = (event) ->
   # center the display canvas vertically in the window
@@ -36,27 +59,22 @@ initDisplay = ->
   document.body.appendChild display.getContainer()
   window.addEventListener 'resize', handleResize
   handleResize()
+  redrawDisplay()
+
+redrawDisplay = ->
+  display.clear()
   updateDisplay()
 
 updateDisplay = ->
-  display.clear()
-  # clear to magic pink
-  for x in [0...DISPLAY_SIZE.width]
-    for y in [0...DISPLAY_SIZE.height]
-      display.draw x, y, "#", "#f0f", "#000"
-  # clear title bar
-  for x in [0...DISPLAY_SIZE.width]
-    display.draw x, 0, " "
-  # draw title bar
-  {player} = window.game
-  px = (""+player.x).lpad "0", 2
-  py = (""+player.y).lpad "0", 2
-  pz = DECK_NAMES[player.z]
-  display.drawText 0, 0, "Deck:%s (%s,%s)".format pz, px, py
+  tui.render display
 
 # run this module
 exports.run = ->
+  # respond to keyboard commands
+  window.addEventListener 'keydown', handleKey
+  # respond to keyboard commands
   doBSOD = ->
+    window.removeEventListener 'keydown', handleKey
     window.removeEventListener 'resize', handleResize
     bsod.run()
   # if this is MSIE, create a BSOD
