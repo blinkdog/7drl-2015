@@ -1,6 +1,6 @@
 {
     "name": "paradroid-rl",
-    "version": "0.0.11",
+    "version": "0.0.12",
     "author": "Patrick Meade <veloxi@ticon.net>",
     "description": "Paradroid themed Roguelike written in CoffeeScript and using rot.js",
     "scripts": {

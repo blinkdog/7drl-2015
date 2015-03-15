@@ -45,7 +45,7 @@ exports.DECK_SIZE =
 
 exports.DISPLAY_SIZE =
   width: 80
-  height: 50
+  height: 35
 
 DROID_01 =
   id: "001"

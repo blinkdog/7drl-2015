@@ -120,10 +120,17 @@ deckMap = (display) ->
   {player} = window.game
   deck = window.game.ship.decks[player.z]
   view = window.game.ship.views[player.z]
+# TODO: Revealing the deck map, or not? Let's try the reveal-as-we-view...
+#  for x in [0...DECK_SIZE.width]
+#    for y in [0...DECK_SIZE.height]
+#      color = if view[x][y] then '#2f0' else '#888'
+#      display.draw x1+x+1, y1+y+1, DO_MAP_TILE[deck[x][y]], color, '#000'
   for x in [0...DECK_SIZE.width]
     for y in [0...DECK_SIZE.height]
-      color = if view[x][y] then '#2f0' else '#888'
-      display.draw x1+x+1, y1+y+1, DO_MAP_TILE[deck[x][y]], color, '#000'
+      if view[x][y]
+        ch = DO_MAP_TILE[deck[x][y]]
+        ch = '.' if deck[x][y] is DECK_OBJECT.EMPTY
+        display.draw x1+x+1, y1+y+1, ch, '#2f0', '#000'
   # add the YOU ARE HERE player icon
   display.draw x1+player.x+1, y1+player.y+1, '@', '#fff', '#000'
 
