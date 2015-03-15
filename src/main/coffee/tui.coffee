@@ -248,7 +248,7 @@ deckSelect = (display, currentDeck, minDeck, maxDeck) ->
 # render the text user interface to the ROT.Display
 # @param display display on which to render the TUI
 exports.render = (display) ->
-  magicPink display   # TODO: Remove; Just for dev/test!
+  #magicPink display
   titleBar display
   statusBar display
   fovMap display

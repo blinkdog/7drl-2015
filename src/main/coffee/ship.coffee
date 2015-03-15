@@ -20,14 +20,10 @@ addEnergizers = (ship) ->
 
 addLifts = (ship) ->
   lifts = []
-#  console.log "addLifts"
   while (allDecksHave(ship, DECK_OBJECT.LIFT) is false) or (allDecksAccessible(ship, lifts) is false)
-#    console.log "all decks do not have lifts"
     randomDeckIndex = Math.floor(ship.decks.length * Math.random())
-#    console.log "starting at deck #{randomDeckIndex}"
     randomDeck = ship.decks[randomDeckIndex]
     liftAt = findRandomObject randomDeck, DECK_OBJECT.EMPTY
-#    console.log "choosing spot #{liftAt[0]},#{liftAt[1]} for a lift"
     upDeckIndex = randomDeckIndex
     downDeckIndex = randomDeckIndex
     while (downDeckIndex < ship.decks.length-1) and (Math.random() < 0.5)
@@ -35,27 +31,20 @@ addLifts = (ship) ->
       if downDeck[liftAt[0]][liftAt[1]] is DECK_OBJECT.EMPTY
         downDeckIndex++
       else
-#        console.log "not empty on the downdeck"
         break
-#    console.log "downDeckIndex = #{downDeckIndex}"
     while (upDeckIndex > 0) and (Math.random() < 0.5)
       upDeck = ship.decks[upDeckIndex-1]
       if upDeck[liftAt[0]][liftAt[1]] is DECK_OBJECT.EMPTY
         upDeckIndex--
       else
-#        console.log "not empty on the updeck"
         break
-#    console.log "upDeckIndex = #{upDeckIndex}"
     if (downDeckIndex - upDeckIndex) > 0
       lifts.push [upDeckIndex, downDeckIndex]
       for deckIndex in [upDeckIndex..downDeckIndex]
-#        console.log "Added lift at Deck #{deckIndex}: #{liftAt[0]},#{liftAt[1]}"
         ship.decks[deckIndex][liftAt[0]][liftAt[1]] = DECK_OBJECT.LIFT
-#  console.log "done adding lifts"
   
 allDecksAccessible = (ship, lifts) ->
   if lifts.length is 0
-#    console.log "No lifts exist yet"
     return false
   start = lifts[0]
   for lift1 in lifts
@@ -66,9 +55,7 @@ allDecksAccessible = (ship, lifts) ->
   MIN_DECK = 0
   MAX_DECK = ship.decks.length-1
   if (start[0] is MIN_DECK) and (start[1] is MAX_DECK)
-#    console.log "All decks are accessible."
     return true
-#  console.log "Not all decks are accessible. [#{start[0]},#{start[1]}]"
   return false
 
 allDecksHave = (ship, obj) ->
@@ -90,7 +77,6 @@ findRandomObject = (deck, obj) ->
     for y in [0...DECK_SIZE.height]
       if deck[x][y] is obj
         possible.push [x,y]
-#  console.log "findRandomObject: There are #{possible.length} possibilities."
   return possible.random()
 
 indexDoors = (ship) ->

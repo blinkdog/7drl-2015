@@ -1,6 +1,29 @@
 # 7drl-2015
 My entry for Seven Day Roguelike (7DRL) Challenge 2015
 
+## Postmortem
+Failure. Right now, you can walk around the ship and watch robots
+move. There isn't enough time left to add enough features to make
+this a playable (i.e.: win/lose) game.
+
+Compared to last year, there was a lot more going on at home and
+work this year, which reduced usable hours by a lot. I spent too
+much time up front importing content and getting the briefing
+going, when I should have focused on the game play.
+
+72 hours into the project before I had the ability to generate
+deck maps? Eeek.
+
+120 hours into the project before I had the ability to view and
+walk around on those deck maps? Eeek!
+
+141 hours into the project before a real turn scheduler was in
+place? Eeek!!!
+
+Well, it was certainly a learning experience. I think I learned
+more from the failure this year than I did from my "success" last
+year. Sometimes, less really is more.
+
 ## Development Log
 * [Sunday] - 7drl-2015 repository created on GitHub
 * 157 - Coding begins
@@ -18,6 +41,9 @@ My entry for Seven Day Roguelike (7DRL) Challenge 2015
 * 027 - Scheduler and engine, doors that open/close, clip walking
 * 026 - Added stub use command
 * 021 - Lifts now operational; move between decks
+* 007 - Ship populated with robots that move and open doors
+* 006 - Screenshot 3 Uploaded
+* 006 - Final Cleanup Check-In
 
 ## Thanks
 * Andrew Braybrook for the original Paradroid. All sound effects are borrowed

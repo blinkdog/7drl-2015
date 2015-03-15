@@ -87,8 +87,8 @@ exports.occupied = (x,y,z) ->
   # if the player is standing there
   {player} = window.game
   if (player.x is x) and (player.y is y) and (player.z is z)
-    console.log "Player is at #{x},#{y},#{z}"
     return true
+  # TODO: Add a check for robots too
   # nobody there
   return false
 

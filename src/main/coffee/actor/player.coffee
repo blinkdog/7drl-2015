@@ -120,6 +120,9 @@ class Player
           player.z = currentDeck
           {messages} = window.game
           messages.push "You take the lift to Deck %s: %s.".format (""+(currentDeck+1)).lpad('0',2), DECK_NAMES[currentDeck]
+        # clear the display to get rid of the deck selection
+        window.API.mainGame.display.clear()
+        # back to the regular game
         window.removeEventListener 'keydown', handleDeckKey
         window.API.mainGame.unlockEngine()
     # start handling deck selection keypresses

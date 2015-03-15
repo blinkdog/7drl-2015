@@ -156,12 +156,9 @@ exports.run = ->
   # initialize the display
   initDisplay()
   # play the beam-on-to-ship sound effect
-  # TODO: Revert; Just for dev/testing!
-  #audio.play 'game-on'
+  audio.play 'game-on'
   # start the game
-  # TODO: Revert; Just for dev/testing!
-  #setTimeout startGame, GAME_START_DELAY
-  setTimeout startGame, 1
+  setTimeout startGame, GAME_START_DELAY
   
 # debugging in browser
 window.API.gameOn = exports if window?.API?
