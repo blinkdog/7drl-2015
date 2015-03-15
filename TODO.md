@@ -2,15 +2,18 @@
 My TO-DO list for the Seven Day Roguelike (7DRL) Challenge 2015
 
 ## Next Tasks
-* [ ] Add functionality to Lifts
-* [ ] Add hostile droids to ship
+* [X] Add functionality to Lifts
+* [ ] Add droids to ship
+** [ ] 001 never spawns
+** [ ] 999 always unique, always spawns on Bridge
 * [ ] Add coloring for the deck indicator
 * [ ] Add weapons for shooting
-* [ ] Allow ramming
+* [ ] Make droids hostile, shoot back
+* [ ] Allow attacking via ramming
+* [ ] Create the transfer mini-game
 * [ ] Display a map key on the TUI
 * [ ] Add energizers to ship
 * [ ] Add consoles to ship
-* [ ] Create the transfer mini-game
 
 ## Wish List
 * [ ] Create a Console module

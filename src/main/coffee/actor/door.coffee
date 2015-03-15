@@ -9,7 +9,8 @@ class Door
   constructor: (@_x, @_y, @_z) ->
     @_closeTimer = CLOSE_TIMER
     @_doorKey = "#{@_x},#{@_y},#{@_z}"
-    @_open = true
+    # a door should be shut when created
+    @_open = false  
     @_speed = SPEED
   
   getSpeed: -> @_speed
@@ -25,7 +26,6 @@ class Door
 
   close: ->
     occ = window.API.mainGame.occupied @_x, @_y, @_z
-    console.log "#{@_x},#{@_y},#{@_z}: #{occ}"
     if window.API.mainGame.occupied @_x, @_y, @_z
       @_closeTimer = CLOSE_TIMER
     else

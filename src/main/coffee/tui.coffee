@@ -19,6 +19,14 @@ DECKMAP =
     WIDTH: DECK_SIZE.width
     HEIGHT: DECK_SIZE.height
 
+DECKSELECT =
+  LOCATION:
+    X: Math.floor (DISPLAY_SIZE.width-(DECK_SIZE.width+2))/2
+    Y: Math.floor (DISPLAY_SIZE.height-(DECK_NAMES.length+2))/2
+  SIZE:
+    WIDTH: DECK_SIZE.width+2
+    HEIGHT: DECK_NAMES.length
+
 FOVMAP =
   LOCATION:
     X: 4
@@ -203,6 +211,27 @@ messageLog = (display) ->
   for i in [0...dispMessages.length]
     display.drawText 0, MESSAGELOG.LOCATION.Y+i, dispMessages[i]
 
+# draw something to let the user select a (deck) in the ship
+deckSelect = (display, currentDeck, minDeck, maxDeck) ->
+  # draw the border of the level map
+  x1 = DECKSELECT.LOCATION.X
+  y1 = DECKSELECT.LOCATION.Y
+  x2 = DECKSELECT.LOCATION.X + DECKSELECT.SIZE.WIDTH + 1
+  y2 = DECKSELECT.LOCATION.Y + DECKSELECT.SIZE.HEIGHT + 1
+  drawBox display, x1, y1, x2, y2, '#888', '#000'
+  # draw the column of levels; ignore color for now
+  {ship} = window.game
+  for y in [0...ship.decks.length]
+    color = '#888'
+    color = '#ccc' if (y >= minDeck) and (y <= maxDeck)
+    color = '#2f0' if y is currentDeck
+    for x in [0...DECK_SIZE.width]
+      display.draw x1+x+2, y1+y+1, '▒', color, '#000'
+  # draw arrows indicating the current position of the player
+  z = currentDeck
+  display.draw x1+1, y1+z+1, '→', '#f20', '#000'
+  display.draw x1+DECK_SIZE.width+2, y1+z+1, '←', '#f20', '#000'
+
 #----------------------------------------------------------------------
 
 # render the text user interface to the ROT.Display
@@ -215,6 +244,9 @@ exports.render = (display) ->
   deckMap display
   levelMap display
   messageLog display
+
+exports.renderSelectDeck = (display, currentDeck, minDeck, maxDeck) ->
+  deckSelect display, currentDeck, minDeck, maxDeck
 
 # debugging in browser
 window.API.tui = exports if window?.API?

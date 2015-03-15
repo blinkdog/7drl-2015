@@ -41,6 +41,7 @@ initDisplay = ->
     width: DISPLAY_SIZE.width
     height: DISPLAY_SIZE.height
     tileColorize: true
+  window.API.mainGame.display = display
   document.body.appendChild display.getContainer()
   window.addEventListener 'resize', handleResize
   handleResize()

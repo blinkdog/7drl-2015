@@ -7,7 +7,8 @@ _ = require 'underscore'
 SOUNDS = [
   "briefing",
   "game-on",
-  "game-start"
+  "game-start",
+  "lift"
 ]
 
 sfx = {}
