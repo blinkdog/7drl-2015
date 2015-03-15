@@ -58,6 +58,10 @@ initEngine = ->
   for doorKey of ship.doors
     doorActor = ship.doors[doorKey]
     scheduler.add doorActor, REPEAT
+  # add the droids to the scheduler
+  {droids} = window.game
+  for droid in droids
+    scheduler.add droid, REPEAT
   # create the player actor
   playerActor = new Player()
   # add the player to the scheduler

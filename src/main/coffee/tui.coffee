@@ -52,7 +52,7 @@ MESSAGELOG =
     HEIGHT: NUM_MESSAGES
 
 DO_MAP_TILE = {}
-DO_MAP_TILE[DECK_OBJECT.EMPTY] = " "
+DO_MAP_TILE[DECK_OBJECT.EMPTY] = "."
 DO_MAP_TILE[DECK_OBJECT.WALL] = "▒"
 DO_MAP_TILE[DECK_OBJECT.DOOR_H] = "─"
 DO_MAP_TILE[DECK_OBJECT.DOOR_V] = "│"
@@ -177,6 +177,17 @@ fovMap = (display) ->
     dy = y1+5 + (y-player.y)
     if dx > x1 and dx < x2 and dy > y1 and dy < y2
       display.draw dx, dy, ch, '#2f0', '#000'
+  # draw all of the droids
+  {droids} = window.game
+  for droid in droids
+    # if the droid is on the same deck
+    if droid._z is player.z
+      drx = droid._x - player.x
+      dry = droid._y - player.y
+      dx = x1+5+drx
+      dy = y1+5+dry
+      if dx > x1 and dx < x2 and dy > y1 and dy < y2
+        display.draw dx, dy, droid.ch, droid.fg, '#000'
   # draw the YOU ARE HERE player icon
   display.draw x1+5, y1+5, '@', '#fff', '#000'
 

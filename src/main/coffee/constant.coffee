@@ -335,10 +335,14 @@ DROID_24 =
   sensors: ["infra-red", "radar", "subsonic"]
   notes: "Experimental command cyborg. Fitted with a new type of brain. Mounted on a security droid anti-grav unit for convenience. Warning: The influence device may not control a primode brain for long."
 
+exports.CYBORG = DROID_24
+
 exports.DROIDS = [
   DROID_01, DROID_02, DROID_03, DROID_04, DROID_05, DROID_06, DROID_07, DROID_08,
   DROID_09, DROID_10, DROID_11, DROID_12, DROID_13, DROID_14, DROID_15, DROID_16,
   DROID_17, DROID_18, DROID_19, DROID_20, DROID_21, DROID_22, DROID_23, DROID_24 ]
+
+exports.DROIDS_PER_DECK = 10
 
 exports.NUM_MESSAGES = 10
 

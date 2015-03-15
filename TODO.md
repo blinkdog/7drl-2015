@@ -2,10 +2,9 @@
 My TO-DO list for the Seven Day Roguelike (7DRL) Challenge 2015
 
 ## Next Tasks
-* [X] Add functionality to Lifts
-* [ ] Add droids to ship
-** [ ] 001 never spawns
-** [ ] 999 always unique, always spawns on Bridge
+* [X] Add droids to ship
+** [X] 001 never spawns
+** [X] 999 always unique, always spawns on Bridge
 * [ ] Add coloring for the deck indicator
 * [ ] Add weapons for shooting
 * [ ] Make droids hostile, shoot back

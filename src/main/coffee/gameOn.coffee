@@ -4,6 +4,7 @@
 
 audio = require './audio'
 mainGame = require './mainGame'
+{Robot} = require './actor/robot'
 ship = require './ship'
 
 #----------------------------------------------------------------------
@@ -15,10 +16,13 @@ DISPLAY_SIZE =
 GAME_START_DELAY = 4250 #ms
 
 {
+  CYBORG,
   DECK_DIFFICULTY,
+  DECK_NAMES,
   DECK_OBJECT,
   DECK_SIZE,
   DROIDS,
+  DROIDS_PER_DECK,
   SHIP_NAMES
 } = require './constant'
 
@@ -29,6 +33,53 @@ display = null
 #----------------------------------------------------------------------
 
 addDroids = ->
+  # initialize some things
+  {player} = window.game
+  theShip = window.game.ship
+  droids = []
+  window.game.droids = droids
+  # for each deck on the ship
+  for z in [0...DECK_NAMES.length-1]
+    theDeck = theShip.decks[z]
+    numDroids = 0
+    # generate a number of droids
+    while numDroids < DROIDS_PER_DECK
+      [x,y] = ship.findRandomObject theDeck, DECK_OBJECT.EMPTY
+      # make sure we don't start on top of the player
+      if (x isnt player.x) or (y isnt player.y) or (z isnt player.z)
+        # create the new droid
+        droid = new Robot droidSpec(z), x, y, z
+        droids.push droid
+        numDroids++
+  # generate a 999 command cyborg on the bridge
+  bridgeDeckIndex = DECK_NAMES.indexOf "Bridge"
+  bridgeDeck = theShip.decks[bridgeDeckIndex]
+  [x,y] = ship.findRandomObject bridgeDeck, DECK_OBJECT.EMPTY
+  cyborg = new Robot CYBORG, x, y, bridgeDeckIndex
+  droids.push cyborg
+
+droidSpec = (z) ->
+  droidChoice = null
+  while droidChoice is null
+    # pick a random droid
+    droidChoice = DROIDS.random()
+    droidClass = parseInt droidChoice.id.substring 0, 1
+    # filter out any inappropriate choices
+    switch droidClass
+      when 0, 9
+        # 001 is the player, we never generate those
+        # 999 is the command cyborg, a unique special
+        droidChoice = null
+      when 1, 2, 3
+        if not (z in DECK_DIFFICULTY.EASY)
+          droidChoice = null
+      when 4, 5, 6
+        if not (z in DECK_DIFFICULTY.NORMAL)
+          droidChoice = null
+      when 7, 8
+        if not (z in DECK_DIFFICULTY.HARD)
+          droidChoice = null
+  return droidChoice
 
 addMessages = ->
   shipName = SHIP_NAMES[window.game.shipId]
