@@ -10,14 +10,14 @@ My TO-DO list for the Seven Day Roguelike (7DRL) Challenge 2015
 *** [ ] Add consoles to ship
 ** [X] Add player droid to ship
 ** [ ] Add droids to ship
-* [ ] Create a Main Game module
+* [X] Create a Main Game module
 ** [X] Create a BSOD module
 ** [X] Display the deck map with FOV
-** [ ] Proper movement around the deck map
+** [X] Proper movement around the deck map
 *** [X] No-Clip movement around the deck map
-*** [ ] Respect walls
-*** [ ] Respect closed doors
-*** [ ] Respect open doors
+*** [X] Respect walls
+*** [X] Respect closed doors
+*** [X] Respect open doors
 ** [X] Title bar
 ** [X] Status bar
 ** [X] Messages window

@@ -9,6 +9,7 @@
 } = require './constant'
 
 {Deck} = require './deck'
+{Door} = require './actor/door'
 {combine} = require './lift'
 
 #----------------------------------------------------------------------
@@ -92,17 +93,32 @@ findRandomObject = (deck, obj) ->
 #  console.log "findRandomObject: There are #{possible.length} possibilities."
   return possible.random()
 
+indexDoors = (ship) ->
+  # for each position on each deck
+  for z in [0...ship.decks.length]
+    for x in [0...DECK_SIZE.width]
+      for y in [0...DECK_SIZE.height]
+        # if the object is a door
+        if (ship.decks[z][x][y] is DECK_OBJECT.DOOR_H) or (ship.decks[z][x][y] is DECK_OBJECT.DOOR_V)
+          # create a door actor for the door
+          doorKey = "#{x},#{y},#{z}"
+          ship.doors[doorKey] = new Door x, y, z
+
 #----------------------------------------------------------------------
 
 exports.create = ->
   # create a ship full of decks
   ship =
+    doors: {}
     decks: []
     views: []
+  # create each of the decks
   for name in DECK_NAMES
     deck = new Deck DECK_SIZE.width, DECK_SIZE.height
     ship.decks.push deck.create()
     ship.views.push ((false for y in [0...DECK_SIZE.height]) for x in [0...DECK_SIZE.width])
+  # populate ship.doors
+  indexDoors ship
   # add lifts
   addLifts ship
   # add consoles

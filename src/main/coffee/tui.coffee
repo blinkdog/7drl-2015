@@ -136,13 +136,18 @@ fovMap = (display) ->
   y2 = FOVMAP.LOCATION.Y + FOVMAP.SIZE.HEIGHT + 1
   drawBox display, x1, y1, x2, y2, '#888', '#000'
   # create the FOV input callback
-  {player} = window.game
-  deck = window.game.ship.decks[player.z]
-  view = window.game.ship.views[player.z]
+  {player, ship} = window.game
+  deck = ship.decks[player.z]
+  view = ship.views[player.z]
   lightPasses = (x,y) ->
     return false if (x < 0) or (x >= DECK_SIZE.width)
     return false if (y < 0) or (y >= DECK_SIZE.height)
-    return deck[x][y] in [DECK_OBJECT.EMPTY, DECK_OBJECT.LIFT]
+    switch deck[x][y]
+      when DECK_OBJECT.EMPTY, DECK_OBJECT.LIFT
+        return true
+      when DECK_OBJECT.DOOR_H, DECK_OBJECT.DOOR_V
+        return ship.doors[x+","+y+","+player.z].isOpen()
+    return false
   # compute the FOV
   fov = new ROT.FOV.PreciseShadowcasting lightPasses
   fov.compute player.x, player.y, 4, (x, y, r, visibility) ->
@@ -150,6 +155,9 @@ fovMap = (display) ->
     return if (y < 0) or (y >= DECK_SIZE.height)
     view[x][y] = true
     ch = DO_MAP_TILE[deck[x][y]]
+    switch deck[x][y]
+      when DECK_OBJECT.DOOR_H, DECK_OBJECT.DOOR_V
+        ch = ' ' if ship.doors[x+","+y+","+player.z].isOpen()
     dx = x1+5 + (x-player.x)
     dy = y1+5 + (y-player.y)
     if dx > x1 and dx < x2 and dy > y1 and dy < y2

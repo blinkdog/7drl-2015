@@ -15,8 +15,11 @@ My entry for Seven Day Roguelike (7DRL) Challenge 2015
 * 076 - Lifts that ensure all decks can be accessed
 * 070 - Main game display with borrowed tileset
 * 048 - Deck display, FOV, viewed/not-viewed, no-clip walking
+* 027 - Scheduler and engine, doors that open/close, clip walking
  
 ## Thanks
+* Andrew Braybrook for the original Paradroid. All sound effects are borrowed
+from the Commodore 64 version of the original game.
 * Thank you to Dave Glowacki and David Schultz, for assistance with the deck
 accessibility algorithm idea. Piss-poor implementation to be blamed completely
 on @blinkdog.
